@@ -86,5 +86,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 - Inspiration
 - etc
 ```
-
-Remember to replace `your-username` with your actual GitHub username and adjust any sections as necessary to match your project's setup and dependencies. Also, if you have a `LICENSE.md` file, make sure it's present in your repository or adjust the link accordingly.
