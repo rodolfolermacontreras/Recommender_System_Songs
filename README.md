@@ -25,14 +25,14 @@ cd song-recommender
 Then, set up a virtual environment:
 
 ```bash
-python -m venv venv
+python -m venv .venv
 ```
 
 Activate the virtual environment:
 
 - On Windows:
   ```bash
-  .\venv\Scripts\activate
+  .venv\Scripts\activate.ps1
   ```
 - On Unix or MacOS:
   ```bash
