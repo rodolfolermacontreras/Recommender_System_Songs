@@ -6,3 +6,10 @@ numpy
 spotipy
 pyyaml
 tqdm
+autopep8
+fastapi
+uvicorn
+pytest
+httpx
+pytest-mock 
+pytest-asyncio

@@ -8,7 +8,6 @@ This repository contains the implementation of a Song Recommender System using c
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-If you get stock there is a post in Medium with great instructions to make it work: [Managing Git Repositories with VSCode](https://medium.com/@dipan.saha/managing-git-repositories-with-vscode-setting-up-a-virtual-environment-62980b9e8106)
 
 ### Prerequisites
 
@@ -26,14 +25,14 @@ cd song-recommender
 Then, set up a virtual environment:
 
 ```bash
-python -m venv .venv
+python -m venv venv
 ```
 
 Activate the virtual environment:
 
 - On Windows:
   ```bash
-  .venv\Scripts\activate.ps1
+  .\venv\Scripts\activate
   ```
 - On Unix or MacOS:
   ```bash
@@ -51,16 +50,17 @@ pip install -r requirements.txt
 To run the Streamlit web app, execute:
 
 ```bash
-uvicorn main:app --reload   
+streamlit run main.py
 ```
 
-Your default web browser should open automatically and navigate to the web app, usually hosted at `//localhost:8000/docs`.
+Your default web browser should open automatically and navigate to the web app, usually hosted at `http://localhost:8501`.
 
 ## Using the Recommender System
 
-- Find your Spotify playlist ID (e.g., 37i9dQZF1E8NgXcf5gQPXv).
-- Use the /recommendations/ endpoint, inputting your Spotify playlist ID.
-- Receive a list of recommended tracks based on the analysis.
+- Input your user ID if you are an existing user.
+- If you're a new user, you can provide a list of songs you like.
+- For new songs, they can still be recommended based on similarity to other songs.
+- The recommender system will process your inputs and provide a list of recommended songs.
 
 ## Deployment
 
@@ -69,7 +69,7 @@ To deploy this project on a live system, you can use services like Streamlit Sha
 ## Built With
 
 - [Python](https://www.python.org/) - Programming language used
-- [FastAPI](https://fastapi.tiangolo.com/) - The framework used to create the API
+- [Streamlit](https://www.streamlit.io/) - The framework used to create the web app
 - [Scikit-learn](https://scikit-learn.org/stable/) - Machine learning library for Python
 
 ## Authors
