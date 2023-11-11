@@ -8,6 +8,7 @@ This repository contains the implementation of a Song Recommender System using c
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+If you get stock there is a post in Medium with great instructions to make it work: [Managing Git Repositories with VSCode](https://medium.com/@dipan.saha/managing-git-repositories-with-vscode-setting-up-a-virtual-environment-62980b9e8106)
 
 ### Prerequisites
 
