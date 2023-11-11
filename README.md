@@ -50,17 +50,16 @@ pip install -r requirements.txt
 To run the Streamlit web app, execute:
 
 ```bash
-streamlit run main.py
+uvicorn main:app --reload   
 ```
 
-Your default web browser should open automatically and navigate to the web app, usually hosted at `http://localhost:8501`.
+Your default web browser should open automatically and navigate to the web app, usually hosted at `//localhost:8000/docs`.
 
 ## Using the Recommender System
 
-- Input your user ID if you are an existing user.
-- If you're a new user, you can provide a list of songs you like.
-- For new songs, they can still be recommended based on similarity to other songs.
-- The recommender system will process your inputs and provide a list of recommended songs.
+- Find your Spotify playlist ID (e.g., 37i9dQZF1E8NgXcf5gQPXv).
+- Use the /recommendations/ endpoint, inputting your Spotify playlist ID.
+- Receive a list of recommended tracks based on the analysis.
 
 ## Deployment
 
@@ -69,7 +68,7 @@ To deploy this project on a live system, you can use services like Streamlit Sha
 ## Built With
 
 - [Python](https://www.python.org/) - Programming language used
-- [Streamlit](https://www.streamlit.io/) - The framework used to create the web app
+- [FastAPI](https://fastapi.tiangolo.com/) - The framework used to create the API
 - [Scikit-learn](https://scikit-learn.org/stable/) - Machine learning library for Python
 
 ## Authors
