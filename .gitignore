@@ -1,0 +1,25 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+env/
+build/
+dist/
+eggs/
+*.egg-info/
+bin/
+include/
+lib/
+
+# Virtual environment
+.venv/
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+
+# Big Files
+data/streamlit.csv
+data/1M_processed.csv
