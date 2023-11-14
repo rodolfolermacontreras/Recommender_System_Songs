@@ -53,7 +53,7 @@ pip install -r requirements.txt
 To run the Streamlit web app, execute:
 
 ```bash
-uvicorn app:api
+uvicorn main:app --reload
 ```
 
 Your default web browser should open automatically and navigate to the web app, usually hosted at `http://localhost:8000/docs`.
