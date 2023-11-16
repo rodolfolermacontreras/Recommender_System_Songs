@@ -23,3 +23,4 @@ __pycache__/
 # Big Files
 data/streamlit.csv
 data/1M_processed.csv
+Spotify.yaml
