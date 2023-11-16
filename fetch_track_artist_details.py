@@ -21,9 +21,11 @@ from sklearn.decomposition import PCA
 from fastapi import FastAPI, HTTPException
 from typing import List
 import uvicorn
+import logging
 
 
 def fetch_track_artist_details(spotify_client, track_ids_uni, artist_id_uni):
+    logging.debug("Entered fetch_track_artist_details")
     audio_features = pd.DataFrame()
     track_details = pd.DataFrame()
     artist_details = pd.DataFrame()

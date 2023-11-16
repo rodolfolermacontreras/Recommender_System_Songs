@@ -21,9 +21,20 @@ from sklearn.decomposition import PCA
 from fastapi import FastAPI, HTTPException
 from typing import List
 import uvicorn
+import logging
 
 
 def preprocess_and_merge_data(df, audio_features, track_details, artist_details):
+
+    # logging.debug("Initial DataFrames:")
+    # logging.debug("Track Details Columns: %s", track_details.columns)
+    # logging.debug("Artist Details Columns: %s", artist_details.columns)
+    # logging.debug("Audio Features Columns: %s", audio_features.columns)
+    # logging.debug("Dataframe Columns: %s", df.columns)
+
+    # Ensure 'Artist_uri' column exists in artist_details
+    assert 'Artist_uri' in artist_details.columns, "Column 'Artist_uri' not found in artist_details DataFrame"
+
     # Rename columns
     test = pd.DataFrame(track_details, columns=[
                         'Track_uri', 'Artist_uri', 'Album_uri'])
@@ -33,12 +44,23 @@ def preprocess_and_merge_data(df, audio_features, track_details, artist_details)
     audio_features_update.drop(
         columns=['type', 'uri', 'track_href', 'analysis_url'], axis=1, inplace=True)
 
+    # # Add logging before the problematic merge
+    # logging.debug("Merging test DataFrame with artist_details")
+    # logging.debug("Test Columns (Before Merge): %s", test.columns)
+    # logging.debug("Artist Details Columns (Before Merge): %s",
+    #               artist_details.columns)
+
     test = pd.merge(test, audio_features_update,
                     left_on="track_uri", right_on="id", how='inner')
     test = pd.merge(test, track_details, left_on="track_uri",
                     right_on="Track_uri", how='inner')
-    test = pd.merge(test, artist_details, left_on="artist_uri",
-                    right_on="Artist_uri", how='inner')
+    # Perform the merge
+    try:
+        test = pd.merge(test, artist_details, left_on="artist_uri",
+                        right_on="Artist_uri", how='inner')
+    except KeyError as e:
+        logging.error("KeyError during merge: %s", e)
+        raise
     test.drop_duplicates(inplace=True)
 
     test.rename(columns={'genres': 'Artist_genres'}, inplace=True)

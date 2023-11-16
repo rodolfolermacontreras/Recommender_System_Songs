@@ -1,3 +1,8 @@
+from fetch_track_artist_details import fetch_track_artist_details
+from fetch_spotify_recommendations import fetch_spotify_recommendations
+from recommend_tracks import recommend_tracks
+from preprocess_and_merge_data import preprocess_and_merge_data
+from load_and_preprocess_data import load_and_preprocess_data
 import os
 import pandas as pd
 import numpy as np
@@ -22,12 +27,14 @@ from fastapi import FastAPI, HTTPException
 from typing import List
 import uvicorn
 
+# For Debugging
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
 # Auxiliary functions
-from load_and_preprocess_data import load_and_preprocess_data
-from preprocess_and_merge_data import preprocess_and_merge_data
-from recommend_tracks import recommend_tracks
-from fetch_spotify_recommendations import fetch_spotify_recommendations
-from fetch_track_artist_details import fetch_track_artist_details
 
 ##########################################################################################
 # Load Spotify Credentials
@@ -91,10 +98,11 @@ app = FastAPI(title=api_title, description=api_description)
 @app.post("/recommendations/")
 async def get_recommendations(playlist_id: str = ""):
     try:
-        # Check for correct playlist ID format
-        match = re.search(r'playlist\/([\w\d]+)', playlist_id)
+        # Adjusted regular expression to optionally match 'playlist/'
+        match = re.search(r'(?:playlist\/)?([\w\d]+)', playlist_id)
+
         if playlist_id and not match:
-            return {"error": "Invalid playlist ID. Please check your playlist ID. It should be in the format like '37i9dQZF1E8NgXcf5gQPXv' found in the Spotify playlist link."}
+            return {"error": "Invalid playlist ID. Please check your playlist ID. It should be in the format like '37i9dQZF1E8NgXcf5gQPXv' or a full Spotify playlist link."}
 
         # Default playlist ID if none is provided
         default_playlist_id = '37i9dQZF1E8NgXcf5gQPXv'
@@ -106,12 +114,17 @@ async def get_recommendations(playlist_id: str = ""):
             spotify_credentials_file)
         sp = local_authenticate_spotify(spotify_credentials)
 
-        # Fetch track and artist IDs
+        # logging.debug("Fetching track and artist IDs")
         track_ids, artist_ids = get_IDs(sp, playlist_id_full)
+        # logging.debug("Track IDs: %s", track_ids)
+        # logging.debug("Artist IDs: %s", artist_ids)
 
-        # Fetch track and artist details
+        logging.debug("Fetching track and artist details")
         audio_features, track_details, artist_details = fetch_track_artist_details(
             sp, track_ids, artist_ids)
+        logging.debug("Audio Features: %s", audio_features.shape)
+        logging.debug("Track Details: %s", track_details.shape)
+        logging.debug("Artist Details: %s", artist_details.shape)
 
         data_file_path = './data/1M_processed.csv'
         df = load_and_preprocess_data(data_file_path)
@@ -129,14 +142,15 @@ async def get_recommendations(playlist_id: str = ""):
         # Convert DataFrame to list of dictionaries for JSON serialization
         recommendations = custom_recommendations.to_dict(orient='records')
 
+        # Log recommendations
+        logging.debug("Recommendations: %s", custom_recommendations.head())
+
         return {"playlist_id": playlist_id, "recommendations": recommendations}
 
     except Exception as e:
-        # Specific check for large playlists
-        if "large playlist" in str(e).lower():
-            error_message = "The playlist is too large to process. Please try a smaller playlist."
-        else:
-            error_message = f"An error occurred: {str(e)}"
+        error_message = f"An error occurred: {str(e)}"
+        # Automatically logs the stack trace
+        logging.exception("An error occurred")
         raise HTTPException(status_code=500, detail=error_message)
 
 if __name__ == "__main__":
