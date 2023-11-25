@@ -1,0 +1,6 @@
+[theme]
+primaryColor="#A50034"  # Carnegie Red: Pantone 187 C
+backgroundColor="#959595"  # Iron Gray: Pantone Cool Gray 10 C approximated
+secondaryBackgroundColor="#CCCCCC"  # Steel Gray: Cool Gray 4 C approximated
+textColor="#000000"  # Black: Pantone Black C
+font="sans serif"

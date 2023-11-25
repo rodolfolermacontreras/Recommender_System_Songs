@@ -19,7 +19,19 @@ def get_spotify_recommendations(playlist_id):
 
 # Streamlit UI layout
 def run_streamlit_ui():
-    st.title('CMU Music Recommendation System')
+
+    # Center the logo using columns
+    #col1, col2, col3 = st.columns([1,6,1])
+
+    col1, col2, col3, col4 = st.columns([1, 2, 1, 4])
+
+    #col1, col2 = st.columns([5, 1])
+    with col3:
+        st.image("logo3.png",  width=250)  # Adjust the path to your logo
+
+    # Center the title "CMU Music Recommendation System" on the page
+    st.markdown("<h1 style='text-align: center; color: #A50034;'>CMU Music Recommendation System</h1>", unsafe_allow_html=True)
+
 
     # Input for Spotify Playlist URI
     playlist_uri = st.text_input('Spotify Playlist URI')
@@ -31,7 +43,8 @@ def run_streamlit_ui():
         if playlist_uri:
             # CMU recommendations
             with col1:
-                st.subheader('CMU Recommendations')
+                st.markdown("<h2 style='color: #A50034;'>CMU Recommendations</h2>", unsafe_allow_html=True)
+                #st.subheader('CMU Recommendations')
                 recommendations = get_recommendations(playlist_uri)
                 if "error" not in recommendations:
                     for rec in recommendations["recommendations"]:
@@ -45,7 +58,8 @@ def run_streamlit_ui():
 
             # Spotify recommendations
             with col2:
-                st.subheader('Spotify Recommendations')
+                st.markdown("<h2 style='color: #A50034;'>Spotify Recommendations</h2>", unsafe_allow_html=True)
+                #st.subheader('Spotify Recommendations')
                 spotify_recs = get_spotify_recommendations(playlist_uri)
                 if "error" not in spotify_recs:
                     for rec in spotify_recs["recommendations"]:
