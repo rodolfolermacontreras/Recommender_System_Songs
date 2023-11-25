@@ -53,10 +53,32 @@ pip install -r requirements.txt
 To run the Streamlit web app, execute:
 
 ```bash
-uvicorn app:api
+uvicorn main:app --reload
 ```
 
 Your default web browser should open automatically and navigate to the web app, usually hosted at `http://localhost:8000/docs`.
+
+### Running the Tests
+
+To run the automated tests for this system, use pytest:
+
+```bash
+pytest
+```
+
+### Performing a Load Test with Locust
+
+To perform a load test on the system, use Locust:
+
+1. Ensure Locust is installed:
+```bash
+pip install locust
+```
+2. Run Locust:
+```bash
+locust
+```
+3. Access the Locust web interface at `http://localhost:8089` and configure your test parameters.
 
 ## Using the Recommender System
 
@@ -67,6 +89,16 @@ Your default web browser should open automatically and navigate to the web app, 
 ## Deployment
 
 To deploy this project on a live system, you can use services like Streamlit Sharing, Heroku, or any other cloud platform that supports Python applications.
+
+## Repository Structure and Dependencies
+  `fetch_track_artist_details.py`: Fetches track and artist details from Spotify.
+  `main.py`: The main FastAPI application.
+  `preprocess_and_merge_data.py`: Processes and merges data for the recommender system.
+  `test_app.py`: Contains pytest tests for the API.
+  `requirements.txt`: Lists all the Python dependencies.
+  `locustfile.py`: Configuration for Locust load testing.
+  `.venv`: Virtual environment for the project.
+
 
 ## Built With
 
