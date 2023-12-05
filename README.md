@@ -2,6 +2,8 @@
 
 Welcome to the CMU Music Recommender System, a sophisticated tool for discovering new music. This system uses advanced machine learning techniques to provide personalized song recommendations, based on user preferences and Spotify playlist analysis.
 
+![Logo](demo.PNG)
+
 ## About the Algorithm
 
 The system employs collaborative filtering and feature extraction to analyze Spotify playlists, using the Spotify API to fetch audio features and artist details. It then applies algorithms like TF-IDF Vectorization and Cosine Similarity to suggest songs that match the user's musical taste.
