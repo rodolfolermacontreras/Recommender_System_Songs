@@ -111,7 +111,7 @@ To deploy this project on a live system, you can use services like Streamlit Sha
 
 ## Authors
 
-- **Your Name** - *Initial work* - [YourUsername](https://github.com/your-username)
+- Junbo Wang, Tim Sun, Michelle Li, Fei Chen & me (Rodolfo Lerma)
 
 ## License
 
